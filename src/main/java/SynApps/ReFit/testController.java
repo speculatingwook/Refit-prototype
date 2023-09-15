@@ -1,4 +1,4 @@
-package SynApps.ReFit;
+package synApps.refit;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

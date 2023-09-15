@@ -1,4 +1,4 @@
-package SynApps.ReFit.global.config;
+package synApps.refit.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
