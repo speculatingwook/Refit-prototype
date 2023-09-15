@@ -19,4 +19,4 @@ RUN ./gradlew bootJar
 EXPOSE 8080
 
 # 컨테이너가 시작될 때 app.jar를 실행합니다.
-CMD ["java", "-jar", "/app/build/libs/ReFit-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/build/libs/refit-0.0.1-SNAPSHOT.jar"]
