@@ -1,8 +1,8 @@
 package synApps.refit.user.entity.user;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
 
@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -39,7 +40,7 @@ public class User {
     @Size(max = 120)
     private String password;
 
-    @NotNull
+    @Nullable
     @Size(max = 512)
     private String profileImageUrl;
 
@@ -75,6 +76,23 @@ public class User {
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
+    private User(String userId,
+                 String username,
+                 String email,
+                 ProviderType providerType,
+                 RoleType roleType,
+                 LocalDateTime createdAt,
+                 LocalDateTime modifiedAt) {
+        this.userId = userId;
+        this.username = username;
+        this.password = "NO_PASS";
+        this.email = email != null ? email : "NO_EMAIL";
+        this.profileImageUrl = "";
+        this.providerType = providerType;
+        this.roleType = roleType;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
 
     public static User of(String userId,
                           String username,
@@ -86,12 +104,25 @@ public class User {
                           LocalDateTime modifiedAt) {
         return new User(userId,username,  email, profileImageUrl, providerType, roleType, createdAt, modifiedAt );
     }
-
+    public static User of(String userId,
+                          String username,
+                          String email,
+                          ProviderType providerType,
+                          RoleType roleType,
+                          LocalDateTime createdAt,
+                          LocalDateTime modifiedAt) {
+        return new User(userId,username,  email, providerType, roleType, createdAt, modifiedAt);
+    }
     public void setUsername(String name) {
         this.username = name;
     }
 
     public void setProfileImageUrl(String imageUrl) {
         this.profileImageUrl = imageUrl;
+    }
+
+    public void encodePassword(String rawPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(rawPassword);
     }
 }
