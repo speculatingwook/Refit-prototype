@@ -4,6 +4,7 @@ package synApps.refit.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import synApps.refit.user.dto.request.DuplicateIdRequest;
 import synApps.refit.user.dto.request.SignupRequest;
 import synApps.refit.user.entity.user.User;
 import synApps.refit.user.oauth.entity.ProviderType;
@@ -27,9 +28,6 @@ public class UserService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");
         }
-        if(!request.getPassword().equals(request.getCheckPassword())){
-            throw new Exception("비밀번호가 일치하지 않습니다.");
-        }
         if (userRepository.existsByUserId(request.getUserId())) {
             throw new Exception("중복되는 아이디입니다.");
         }
@@ -45,5 +43,8 @@ public class UserService {
         user.encodePassword(request.getPassword());
         userRepository.save(user);
         return user;
+    }
+    public boolean checkDuplicateId(DuplicateIdRequest request) throws Exception {
+        return userRepository.existsByUserId(request.getUserId());
     }
 }
