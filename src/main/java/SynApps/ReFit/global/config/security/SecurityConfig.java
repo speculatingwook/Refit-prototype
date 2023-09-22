@@ -27,7 +27,7 @@ import synApps.refit.user.oauth.repository.OAuth2AuthorizationRequestBasedOnCook
 import synApps.refit.user.oauth.service.CustomOAuth2UserService;
 import synApps.refit.user.oauth.service.CustomUserDetailsService;
 import synApps.refit.user.oauth.token.AuthTokenProvider;
-import synApps.refit.user.user.UserRefreshTokenRepository;
+import synApps.refit.user.repository.UserRefreshTokenRepository;
 
 import java.util.Arrays;
 
@@ -58,7 +58,8 @@ public class SecurityConfig{
             "/swagger-resources/**",
             "/signin",
             "/user/duplicate-id",
-            "/user/signUp"
+            "/user/signUp",
+            "/refresh"
     };
 
     /*

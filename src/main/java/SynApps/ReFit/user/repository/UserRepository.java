@@ -1,4 +1,4 @@
-package synApps.refit.user.user;
+package synApps.refit.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

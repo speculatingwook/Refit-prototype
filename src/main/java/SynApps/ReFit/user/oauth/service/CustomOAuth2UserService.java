@@ -15,7 +15,7 @@ import synApps.refit.user.oauth.entity.UserPrincipal;
 import synApps.refit.user.oauth.exception.OAuthProviderMissMatchException;
 import synApps.refit.user.oauth.info.OAuth2UserInfo;
 import synApps.refit.user.oauth.info.OAuth2UserInfoFactory;
-import synApps.refit.user.user.UserRepository;
+import synApps.refit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 
