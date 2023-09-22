@@ -22,7 +22,7 @@ import synApps.refit.user.oauth.entity.RoleType;
 import synApps.refit.user.oauth.entity.UserPrincipal;
 import synApps.refit.user.oauth.token.AuthToken;
 import synApps.refit.user.oauth.token.AuthTokenProvider;
-import synApps.refit.user.user.UserRefreshTokenRepository;
+import synApps.refit.user.repository.UserRefreshTokenRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +56,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
+        System.out.println(appProperties.getAuth().getTokenExpiry());
         Date now = new Date();
         AuthToken accessToken = tokenProvider.createAuthToken(
                 userId,

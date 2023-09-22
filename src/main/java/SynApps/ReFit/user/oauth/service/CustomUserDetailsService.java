@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import synApps.refit.user.entity.user.User;
 import synApps.refit.user.oauth.entity.UserPrincipal;
-import synApps.refit.user.user.UserRepository;
+import synApps.refit.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

@@ -9,10 +9,9 @@ import synApps.refit.user.dto.request.SignupRequest;
 import synApps.refit.user.entity.user.User;
 import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
-import synApps.refit.user.user.UserRepository;
+import synApps.refit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor

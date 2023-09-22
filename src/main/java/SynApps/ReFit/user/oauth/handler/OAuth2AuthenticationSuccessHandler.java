@@ -18,7 +18,7 @@ import synApps.refit.user.oauth.info.OAuth2UserInfoFactory;
 import synApps.refit.user.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import synApps.refit.user.oauth.token.AuthToken;
 import synApps.refit.user.oauth.token.AuthTokenProvider;
-import synApps.refit.user.user.UserRefreshTokenRepository;
+import synApps.refit.user.repository.UserRefreshTokenRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;

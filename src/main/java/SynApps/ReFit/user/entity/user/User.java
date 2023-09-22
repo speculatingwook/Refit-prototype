@@ -1,8 +1,13 @@
 package synApps.refit.user.entity.user;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import synApps.refit.body.entity.BodyStatus;
 import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
 
@@ -12,6 +17,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +29,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<BodyStatus> bodyStatusList = new ArrayList<>();
+
 
     @NotNull
     @Size(max = 64)
