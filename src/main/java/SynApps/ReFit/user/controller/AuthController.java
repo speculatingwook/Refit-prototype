@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import synApps.refit.global.config.properties.AppProperties;
+import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.global.dto.ResponseHeader;
 import synApps.refit.global.utils.CookieUtil;
 import synApps.refit.global.utils.HeaderUtil;
@@ -28,6 +29,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -86,8 +88,8 @@ public class AuthController {
         CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
         CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken.getToken(), cookieMaxAge);
 
-
-        return ResponseEntity.ok(accessToken);
+        ResponseDto responseData = new ResponseDto(true, List.of(accessToken));
+        return ResponseEntity.ok(responseData);
     }
 
     @GetMapping("/refresh")
