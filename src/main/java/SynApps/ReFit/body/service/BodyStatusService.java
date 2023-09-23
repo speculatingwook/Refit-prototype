@@ -12,6 +12,7 @@ import synApps.refit.user.entity.user.User;
 import synApps.refit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -54,6 +55,10 @@ public class BodyStatusService {
         return bodyStatusRepository.findByBodyStatusId(bodyStatusId);
     }
 
+    public List<BodyStatus> getInfoList(String userId) {
+        User user = userRepository.findByUserId(userId);
+        return bodyStatusRepository.findAllByUser(user);
+    }
     @Transactional
     public String deleteInfo(Long bodyStatusId) {
         BodyStatus bodyStatus = bodyStatusRepository.findByBodyStatusId(bodyStatusId);

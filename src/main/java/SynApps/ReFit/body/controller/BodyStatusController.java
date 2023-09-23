@@ -16,35 +16,45 @@ public class BodyStatusController {
     private final BodyStatusService bodyStatusService;
 
     @Operation(summary = "Save BodyStatus", description = "신체정보 저장")
-    @PostMapping("/{id}")
+    @PostMapping("/{user-id}")
     public ResponseEntity<?> saveBodyStatus(
-            @PathVariable("id") final String userId,
+            @PathVariable("user-id") final String userId,
             @RequestBody BodyStatusRequest request){
         ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.saveInfo(request, userId)));
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Get BodyStatus", description = "신체정보 가져오기")
-    @GetMapping("/{id}")
+    @GetMapping("/{body-status-id}")
     public ResponseEntity<?> getBodyStatus(
-            @PathVariable("id") final Long bodyStatusId) {
+            @PathVariable("body-status-id") final Long bodyStatusId) {
         ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.getInfo(bodyStatusId)));
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Get BodyStatus", description = "신체정보 가져오기")
+    @GetMapping("/list/{user-id}")
+    public ResponseEntity<?> getBodyStatusList(
+            @PathVariable("user-id") final String userId
+    ) {
+        ResponseDto response = new ResponseDto(true, bodyStatusService.getInfoList(userId));
+        return ResponseEntity.ok(response);
+    }
+
+
     @Operation(summary = "Edit BodyStatus", description = "신체정보 수정")
-    @PutMapping("/{id}")
+    @PutMapping("/{body-status-id}")
     public ResponseEntity<?> editBodyStatus(
-            @PathVariable("id") final Long bodyStatusId,
+            @PathVariable("body-status-id") final Long bodyStatusId,
             @RequestBody BodyStatusRequest request) {
         ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.modifyInfo(bodyStatusId, request)));
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Delete BodyStatus", description = "신체정보 삭제")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{body-status-id}")
     public ResponseEntity<?> deleteBodyStatus(
-            @PathVariable("id") final Long bodyStatusId) {
+            @PathVariable("body-status-id") final Long bodyStatusId) {
         ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.deleteInfo(bodyStatusId)));
         return ResponseEntity.ok(response);
     }
