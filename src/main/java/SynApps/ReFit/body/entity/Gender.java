@@ -9,8 +9,8 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum Gender {
-    MALE("GENDER_MALE" , 0),
-    FEMALE("GENDER_FEMALE", 1),
+    MALE("MALE" , 0),
+    FEMALE("FEMALE", 1),
     OTHER("OTHER", 2);
 
     private final String gender;
