@@ -8,14 +8,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import synApps.refit.global.config.properties.AppProperties;
 import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.global.dto.ResponseHeader;
 import synApps.refit.global.utils.CookieUtil;
 import synApps.refit.global.utils.HeaderUtil;
 import synApps.refit.user.dto.request.LoginRequest;
-import synApps.refit.user.dto.response.AccessTokenResponse;
 import synApps.refit.user.entity.user.UserRefreshToken;
 import synApps.refit.user.oauth.entity.RoleType;
 import synApps.refit.user.oauth.entity.UserPrincipal;
