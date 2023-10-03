@@ -22,7 +22,6 @@ public class UserService {
         return userRepository.findByUserId(userId);
     }
 
-    @Transactional
     public User signUp(SignupRequest request) throws Exception{
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");
