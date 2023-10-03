@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.user.dto.request.DuplicateIdRequest;
 import synApps.refit.user.dto.request.SignupRequest;
-import synApps.refit.user.entity.user.User;
 import synApps.refit.user.service.UserService;
 
 import javax.validation.Valid;
