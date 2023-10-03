@@ -56,10 +56,10 @@ public class SecurityConfig{
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/signin",
+            "/auth",
             "/user/duplicate-id",
-            "/user/signUp",
-            "/refresh"
+            "/user",
+            "/refresh-token"
     };
 
     /*
