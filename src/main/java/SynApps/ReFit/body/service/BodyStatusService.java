@@ -20,7 +20,6 @@ public class BodyStatusService {
     private final BodyStatusRepository bodyStatusRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     public BodyStatus saveInfo(BodyStatusRequest request, String userId) {
         User user = userRepository.findByUserId(userId);
         DateTimeUtil dateTime = new DateTimeUtil();
@@ -36,7 +35,6 @@ public class BodyStatusService {
         return bodyStatus;
     }
 
-    @Transactional
     public BodyStatus modifyInfo(Long bodyStatusId, BodyStatusRequest request) {
         BodyStatus bodyStatus = bodyStatusRepository.findByBodyStatusId(bodyStatusId);
         DateTimeUtil dateTime = new DateTimeUtil();
@@ -59,7 +57,7 @@ public class BodyStatusService {
         User user = userRepository.findByUserId(userId);
         return bodyStatusRepository.findAllByUser(user);
     }
-    @Transactional
+
     public String deleteInfo(Long bodyStatusId) {
         BodyStatus bodyStatus = bodyStatusRepository.findByBodyStatusId(bodyStatusId);
         bodyStatusRepository.delete(bodyStatus);
