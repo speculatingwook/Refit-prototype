@@ -11,7 +11,7 @@ public class BodyStatusRequest {
     private String gender;
     private float height;
     private float weight;
-    private float sketeletallMuscleMass;
+    private float skeletalMuscleMass;
     private float bodyFatMass;
     private String goal;
 }

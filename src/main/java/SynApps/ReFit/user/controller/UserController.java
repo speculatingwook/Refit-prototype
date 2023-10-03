@@ -20,10 +20,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
 
 
-    @PostMapping("/signUp")
+    @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> join(@Valid @RequestBody SignupRequest request) throws Exception {
         ResponseDto response = new ResponseDto(true, List.of(userService.signUp(request)));
