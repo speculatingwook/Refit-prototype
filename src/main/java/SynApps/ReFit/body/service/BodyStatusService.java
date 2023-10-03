@@ -45,7 +45,7 @@ public class BodyStatusService {
                 Gender.of(request.getGender()),
                 request.getWeight(),
                 request.getHeight(),
-                request.getSketeletallMuscleMass(),
+                request.getSkeletalMuscleMass(),
                 request.getBodyFatMass(),
                 request.getGoal(), dateTime.getNow());
         return bodyStatus;
