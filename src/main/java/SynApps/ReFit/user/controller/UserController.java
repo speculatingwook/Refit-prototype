@@ -3,7 +3,6 @@ package synApps.refit.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import synApps.refit.global.dto.ResponseDto;
@@ -31,9 +30,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getUser() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        ResponseDto response = new ResponseDto(true, List.of(userService.getUser(principal.getUsername())));
+        ResponseDto response = new ResponseDto(true, List.of(userService.getUser()));
         return ResponseEntity.ok(response);
     }
 
