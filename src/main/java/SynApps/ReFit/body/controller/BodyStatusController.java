@@ -16,11 +16,10 @@ public class BodyStatusController {
     private final BodyStatusService bodyStatusService;
 
     @Operation(summary = "Save BodyStatus", description = "신체정보 저장")
-    @PostMapping("/{user-id}")
+    @PostMapping()
     public ResponseEntity<?> saveBodyStatus(
-            @PathVariable("user-id") final String userId,
             @RequestBody BodyStatusRequest request){
-        ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.saveInfo(request, userId)));
+        ResponseDto response = new ResponseDto(true, List.of(bodyStatusService.saveInfo(request)));
         return ResponseEntity.ok(response);
     }
 
@@ -33,11 +32,10 @@ public class BodyStatusController {
     }
 
     @Operation(summary = "Get BodyStatus", description = "신체정보 가져오기")
-    @GetMapping("/list/{user-id}")
+    @GetMapping("/list")
     public ResponseEntity<?> getBodyStatusList(
-            @PathVariable("user-id") final String userId
     ) {
-        ResponseDto response = new ResponseDto(true, bodyStatusService.getInfoList(userId));
+        ResponseDto response = new ResponseDto(true, bodyStatusService.getInfoList());
         return ResponseEntity.ok(response);
     }
 

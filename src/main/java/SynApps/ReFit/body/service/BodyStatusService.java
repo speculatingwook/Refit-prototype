@@ -2,7 +2,6 @@ package synApps.refit.body.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.body.dto.BodyStatusRequest;
 import synApps.refit.body.entity.BodyStatus;
 import synApps.refit.body.entity.Gender;
@@ -10,6 +9,7 @@ import synApps.refit.body.repository.BodyStatusRepository;
 import synApps.refit.global.utils.DateTimeUtil;
 import synApps.refit.user.entity.user.User;
 import synApps.refit.user.repository.UserRepository;
+import synApps.refit.user.service.ClientUserLoader;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,9 +19,10 @@ import java.util.List;
 public class BodyStatusService {
     private final BodyStatusRepository bodyStatusRepository;
     private final UserRepository userRepository;
+    private final ClientUserLoader clientUserLoader;
 
-    public BodyStatus saveInfo(BodyStatusRequest request, String userId) {
-        User user = userRepository.findByUserId(userId);
+    public BodyStatus saveInfo(BodyStatusRequest request) {
+        User user = clientUserLoader.getClientUser();
         DateTimeUtil dateTime = new DateTimeUtil();
         BodyStatus bodyStatus = BodyStatus.of(
                 user,
@@ -29,6 +30,8 @@ public class BodyStatusService {
                 Gender.of(request.getGender()),
                 request.getWeight(),
                 request.getHeight(),
+                request.getSkeletalMuscleMass(),
+                request.getBodyFatMass(),
                 request.getGoal(),
                 dateTime.getNow(), dateTime.getNow());// 경우에 따라서 나눠서 보내줘야 할듯함
         bodyStatusRepository.save(bodyStatus);
@@ -53,8 +56,9 @@ public class BodyStatusService {
         return bodyStatusRepository.findByBodyStatusId(bodyStatusId);
     }
 
-    public List<BodyStatus> getInfoList(String userId) {
-        User user = userRepository.findByUserId(userId);
+    public List<BodyStatus> getInfoList() {
+        User userFromClient = clientUserLoader.getClientUser();
+        User user = userRepository.findByUserId(userFromClient.getUserId());
         return bodyStatusRepository.findAllByUser(user);
     }
 
