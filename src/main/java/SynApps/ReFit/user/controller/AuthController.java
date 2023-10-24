@@ -2,10 +2,7 @@ package synApps.refit.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import synApps.refit.user.dto.request.LoginRequest;
 import synApps.refit.user.service.AuthService;
 
@@ -14,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/signin")
+    @PostMapping
     public ResponseEntity<?> authenticateUser(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -25,7 +23,7 @@ public class AuthController {
         return authService.login(request, response, loginRequest);
     }
 
-    @GetMapping("/refresh")
+    @GetMapping("/refresh-token")
     public ResponseEntity<?> refreshToken (HttpServletRequest request, HttpServletResponse response) {
         return authService.refresh(request, response);
     }

@@ -2,8 +2,8 @@ package synApps.refit.user.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.user.dto.request.DuplicateIdRequest;
 import synApps.refit.user.dto.request.SignupRequest;
 import synApps.refit.user.entity.user.User;
@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User getUser(String userId) {
-        return userRepository.findByUserId(userId);
+    public User getUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUserId(principal.getUsername());
     }
 
-    @Transactional
     public User signUp(SignupRequest request) throws Exception{
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");

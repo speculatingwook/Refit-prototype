@@ -3,7 +3,6 @@ package synApps.refit.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import synApps.refit.global.dto.ResponseDto;
@@ -20,10 +19,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
 
 
-    @PostMapping("/signUp")
+    @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> join(@Valid @RequestBody SignupRequest request) throws Exception {
         ResponseDto response = new ResponseDto(true, List.of(userService.signUp(request)));
@@ -32,9 +30,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getUser() {
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        ResponseDto response = new ResponseDto(true, List.of(userService.getUser(principal.getUsername())));
+        ResponseDto response = new ResponseDto(true, List.of(userService.getUser()));
         return ResponseEntity.ok(response);
     }
 

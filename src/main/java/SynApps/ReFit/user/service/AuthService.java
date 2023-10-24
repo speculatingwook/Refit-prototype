@@ -35,7 +35,7 @@ public class AuthService {
     private final AuthTokenProvider tokenProvider;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
 
-    private final static long THREE_DAYS_MSEC = 259200000;
+    private final static long THREE_DAYS_MSEC = 259200;
     private final static String REFRESH_TOKEN = "refresh_token";
 
     public ResponseEntity<?> login(HttpServletRequest request,

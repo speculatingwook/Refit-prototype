@@ -20,7 +20,6 @@ public class BodyStatus {
 
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="id")
     @JsonIgnore
     private User user;
 
@@ -38,7 +37,7 @@ public class BodyStatus {
     private float height;
 
 
-    private float sketeletallMuscleMass;
+    private float skeletalMuscleMass;
 
     private float bodyFatMass;
 
@@ -63,13 +62,13 @@ public class BodyStatus {
     }
 
 
-    private BodyStatus(User user, LocalDateTime birth, Gender gender, float weight, float height,float sketeletallMuscleMass, float bodyFatMass, String goal, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    private BodyStatus(User user, LocalDateTime birth, Gender gender, float weight, float height,float skeletalMuscleMass, float bodyFatMass, String goal, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.user = user;
         this.birth = birth;
         this.gender = gender;
         this.weight = weight;
         this.height = height;
-        this.sketeletallMuscleMass = sketeletallMuscleMass;
+        this.skeletalMuscleMass = skeletalMuscleMass;
         this.bodyFatMass = bodyFatMass;
         this.goal = goal;
         this.createdAt = createdAt;
@@ -78,16 +77,16 @@ public class BodyStatus {
     public static BodyStatus of(User user, LocalDateTime birth, Gender gender, float weight, float height, String goal, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         return new BodyStatus(user, birth, gender, weight, height, goal, createdAt, modifiedAt);
     }
-    public static BodyStatus of(User user, LocalDateTime birth, Gender gender, float weight, float height,float sketeletallMuscleMass, float bodyFatMass, String goal, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new BodyStatus(user, birth, gender, weight, height, sketeletallMuscleMass, bodyFatMass, goal, createdAt, modifiedAt);
+    public static BodyStatus of(User user, LocalDateTime birth, Gender gender, float weight, float height,float skeletalMuscleMass, float bodyFatMass, String goal, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        return new BodyStatus(user, birth, gender, weight, height, skeletalMuscleMass, bodyFatMass, goal, createdAt, modifiedAt);
     }
 
-    public void modifyBodyStatus(LocalDateTime birth, Gender gender, float weight, float height,float sketeletallMuscleMass, float bodyFatMass, String goal, LocalDateTime modifiedAt) {
+    public void modifyBodyStatus(LocalDateTime birth, Gender gender, float weight, float height,float skeletalMuscleMass, float bodyFatMass, String goal, LocalDateTime modifiedAt) {
         this.birth = birth;
         this.gender = gender;
         this.weight = weight;
         this.height = height;
-        this.sketeletallMuscleMass = sketeletallMuscleMass;
+        this.skeletalMuscleMass = skeletalMuscleMass;
         this.bodyFatMass = bodyFatMass;
         this.goal = goal;
         this.modifiedAt = modifiedAt;
