@@ -2,6 +2,7 @@ package synApps.refit.body.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.body.dto.BodyStatusRequest;
 import synApps.refit.body.entity.BodyStatus;
 import synApps.refit.body.entity.Gender;
@@ -38,6 +39,7 @@ public class BodyStatusService {
         return bodyStatus;
     }
 
+    @Transactional
     public BodyStatus modifyInfo(Long bodyStatusId, BodyStatusRequest request) {
         BodyStatus bodyStatus = bodyStatusRepository.findByBodyStatusId(bodyStatusId);
         DateTimeUtil dateTime = new DateTimeUtil();

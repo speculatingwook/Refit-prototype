@@ -16,6 +16,11 @@ public enum Gender {
     private final String gender;
     private final int serialNumber;
 
+    /**
+     *
+     * @param gender String 입력
+     * @return Gender enum으로 변환
+     */
     public static Gender of(String gender) {
         return Arrays.stream(Gender.values())
                 .filter(r->r.getGender().equals(gender))
