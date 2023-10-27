@@ -66,10 +66,6 @@ public class AuthService {
         String accessToken = HeaderUtil.getAccessToken(request);
         AuthToken authToken = tokenProvider.convertAuthToken(accessToken);
 
-        if (!authToken.validate()) {
-            return errorResponse("accessToken이 올바르지 않습니다.");
-        }
-
         // expired access token 인지 확인
         Claims claims = authToken.getExpiredTokenClaims();
 
@@ -79,13 +75,14 @@ public class AuthService {
 
         String userId = claims.getSubject();
         RoleType roleType = RoleType.of(claims.get("role", String.class));
+
         String refreshToken = CookieUtil.getCookie(request, REFRESH_TOKEN)
                 .map(Cookie::getValue)
                 .orElse((null));
-
+        System.out.println("refreshtoken" + refreshToken);
         AuthToken authRefreshToken = tokenProvider.convertAuthToken(refreshToken);
 
-        if (authRefreshToken.validate()) {
+        if (!authRefreshToken.validate()) {
             return errorResponse("refreshToken이 올바르지 않습니다.");
         }
 
@@ -93,6 +90,7 @@ public class AuthService {
         UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserIdAndRefreshToken(userId, refreshToken);
 
         if (userRefreshToken == null) {
+            System.out.println("2");
             return errorResponse("refreshToken이 올바르지 않습니다.");
         }
 
