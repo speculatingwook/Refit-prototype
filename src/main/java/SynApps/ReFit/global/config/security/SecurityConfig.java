@@ -59,7 +59,7 @@ public class SecurityConfig{
             "/auth",
             "/user/duplicate-id",
             "/user",
-            "/refresh-token"
+            "/auth/refresh-token"
     };
 
     /*
