@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.global.config.properties.AppProperties;
 import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.global.dto.ResponseHeader;
@@ -38,6 +39,7 @@ public class AuthService {
     private final static long THREE_DAYS_MSEC = 259200;
     private final static String REFRESH_TOKEN = "refresh_token";
 
+    @Transactional
     public ResponseEntity<?> login(HttpServletRequest request,
                                     HttpServletResponse response,
                                     LoginRequest loginRequest) {
@@ -60,6 +62,7 @@ public class AuthService {
         return ResponseEntity.ok(responseData);
     }
 
+    @Transactional
     public ResponseEntity<?> refresh(HttpServletRequest request, HttpServletResponse response) {
         Date now = new Date();
         // access token 확인
@@ -79,7 +82,7 @@ public class AuthService {
         String refreshToken = CookieUtil.getCookie(request, REFRESH_TOKEN)
                 .map(Cookie::getValue)
                 .orElse((null));
-        System.out.println("refreshtoken" + refreshToken);
+
         AuthToken authRefreshToken = tokenProvider.convertAuthToken(refreshToken);
 
         if (!authRefreshToken.validate()) {
@@ -90,7 +93,6 @@ public class AuthService {
         UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserIdAndRefreshToken(userId, refreshToken);
 
         if (userRefreshToken == null) {
-            System.out.println("2");
             return errorResponse("refreshToken이 올바르지 않습니다.");
         }
 
