@@ -7,7 +7,6 @@ import synApps.refit.exercise.dto.request.ExerciseRequest;
 import synApps.refit.exercise.entity.*;
 import synApps.refit.exercise.repository.ExerciseRecordRepository;
 import synApps.refit.exercise.repository.ExerciseRepository;
-import synApps.refit.exercise.repository.RoutineRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.List;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseRecordRepository exerciseRecordRepository;
-    private final RoutineRepository routineRepository;
 
     public Exercise saveTotalInfo(ExerciseRequest request) {
         Exercise exercise = Exercise.of(
