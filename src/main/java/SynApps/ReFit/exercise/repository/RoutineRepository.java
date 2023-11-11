@@ -6,5 +6,5 @@ import synApps.refit.exercise.entity.Routine;
 
 @Repository
 public interface RoutineRepository extends JpaRepository<Routine, Long> {
-    Routine findByRoutineId(String routineId);
+    Routine findByRoutineId(Long routineId);
 }

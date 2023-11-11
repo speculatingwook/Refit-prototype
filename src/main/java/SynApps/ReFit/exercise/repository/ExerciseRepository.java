@@ -6,5 +6,5 @@ import synApps.refit.exercise.entity.Exercise;
 
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
-    Exercise findByExerciseId(String exerciseId);
+    Exercise findByExerciseId(Long exerciseId);
 }
