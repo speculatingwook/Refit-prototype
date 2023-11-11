@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.exercise.dto.request.RoutineRequest;
+import synApps.refit.exercise.entity.Exercise;
 import synApps.refit.exercise.entity.ExerciseRecord;
 import synApps.refit.exercise.entity.Routine;
 import synApps.refit.exercise.repository.ExerciseRecordRepository;
@@ -12,6 +13,7 @@ import synApps.refit.exercise.repository.RoutineRepository;
 import synApps.refit.exercise.repository.RoutineSetRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class RoutineService {
     public Routine getInfo(Long routineId) {
         return routineRepository.findByRoutineId(routineId);
     }
+
 
 
     public String deleteInfo(Long routineId) {

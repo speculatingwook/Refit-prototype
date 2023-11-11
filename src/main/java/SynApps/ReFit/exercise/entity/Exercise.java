@@ -15,10 +15,6 @@ public class Exercise {
     @GeneratedValue
     private Long exerciseId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "routineId", unique = true)
-    private Routine routine;
-
     @NotNull
     private String exerciseName;
 
@@ -30,15 +26,13 @@ public class Exercise {
 
     private String exerciseReference;
     private String exerciseImageUrl;
-    private Exercise(Routine routine, String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType) {
-        this.routine = routine;
+    private Exercise(String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType) {
         this.exerciseName = exerciseName;
         this.exercisePart = exercisePart;
         this.exerciseType = exerciseType;
     }
 
-    private Exercise(Routine routine, String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType, String exerciseReference, String exerciseImageUrl){
-            this.routine = routine;
+    private Exercise(String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType, String exerciseReference, String exerciseImageUrl){
             this.exerciseName =exerciseName;
             this.exercisePart = exercisePart;
             this.exerciseType = exerciseType;
@@ -46,15 +40,15 @@ public class Exercise {
             this.exerciseImageUrl = exerciseImageUrl;
     }
 
-    public static Exercise of(Routine routine, String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType) {
-        return new Exercise(routine, exerciseName, exercisePart, exerciseType);
+    public static Exercise of(String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType) {
+        return new Exercise(exerciseName, exercisePart, exerciseType);
     }
 
-    public static Exercise of(Routine routine, String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType,String exerciseReference, String exerciseImageUrl) {
-        return new Exercise(routine, exerciseName, exercisePart, exerciseType,exerciseReference, exerciseImageUrl);
+    public static Exercise of(String exerciseName, ExercisePart exercisePart, ExerciseType exerciseType,String exerciseReference, String exerciseImageUrl) {
+        return new Exercise(exerciseName, exercisePart, exerciseType,exerciseReference, exerciseImageUrl);
     }
 
-    public void setPartType(String exerciseReference, String exerciseImageUrl) {
+    public void setReferenceAndImageUrl(String exerciseReference, String exerciseImageUrl) {
         this.exerciseReference =exerciseReference;
         this.exerciseImageUrl = exerciseImageUrl;
     }

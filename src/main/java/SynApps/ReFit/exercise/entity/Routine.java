@@ -24,6 +24,10 @@ public class Routine {
     @JsonIgnore
     private ExerciseRecord exerciseRecord;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exerciseId", unique = true)
+    private Exercise exercise;
+
     @JsonBackReference
     @OneToMany(mappedBy = "routineSet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<RoutineSet> routineSetList = new ArrayList<>();
