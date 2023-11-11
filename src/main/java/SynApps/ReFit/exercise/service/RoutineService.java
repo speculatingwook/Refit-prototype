@@ -19,9 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoutineService {
     private final RoutineRepository routineRepository;
-    private final RoutineSetRepository routineSetRepository;
     private final ExerciseRecordRepository exerciseRecordRepository;
-    private final ExerciseRepository exerciseRepository;
 
     public Routine saveInfo(Long exerciseRecordId, RoutineRequest request) {
         ExerciseRecord record = exerciseRecordRepository.findByExerciseRecordId(exerciseRecordId);
