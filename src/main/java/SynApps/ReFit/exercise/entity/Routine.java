@@ -1,5 +1,6 @@
 package synApps.refit.exercise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +23,10 @@ public class Routine {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JsonIgnore
     private ExerciseRecord exerciseRecord;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "routineSet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<RoutineSet> routineSetList = new ArrayList<>();
 
 
     @NotNull
