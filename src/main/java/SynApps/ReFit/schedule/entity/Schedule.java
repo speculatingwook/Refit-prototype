@@ -1,15 +1,19 @@
 package synApps.refit.schedule.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import synApps.refit.exercise.entity.ExerciseRecord;
 import synApps.refit.user.entity.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +26,10 @@ public class Schedule {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JsonIgnore
     private User user;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "exerciseRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<ExerciseRecord> exerciseRecordList = new ArrayList<>();
 
     @NotNull
     private LocalDate date;
