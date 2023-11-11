@@ -6,14 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.exercise.dto.request.RoutineRequest;
 import synApps.refit.exercise.entity.ExerciseRecord;
 import synApps.refit.exercise.entity.Routine;
-import synApps.refit.exercise.entity.RoutineSet;
 import synApps.refit.exercise.repository.ExerciseRecordRepository;
 import synApps.refit.exercise.repository.ExerciseRepository;
 import synApps.refit.exercise.repository.RoutineRepository;
 import synApps.refit.exercise.repository.RoutineSetRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,10 +39,6 @@ public class RoutineService {
         return routineRepository.findByRoutineId(routineId);
     }
 
-//    public List<RoutineSet> getRoutineSetList(Long routineId) {
-//        Routine routine = routineRepository.findByRoutineId(routineId);
-//        return routineSetRepository.findAllByRoutine(routine);
-//    }
 
     public String deleteInfo(Long routineId) {
         Routine routine = routineRepository.findByRoutineId(routineId);
