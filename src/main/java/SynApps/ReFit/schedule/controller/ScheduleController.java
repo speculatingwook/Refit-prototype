@@ -18,7 +18,7 @@ public class ScheduleController {
     @PostMapping()
     public ResponseEntity<?> saveSchedule(
             @RequestBody ScheduleRequest request) {
-        ResponseDto response = new ResponseDto(true, List.of(scheduleService.saveInfo(request;
+        ResponseDto response = new ResponseDto(true, List.of(scheduleService.saveInfo(request)));
         return ResponseEntity.ok(response);
     }
 
