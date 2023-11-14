@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import synApps.refit.diet.entity.DietRecord;
 import synApps.refit.exercise.entity.ExerciseRecord;
 import synApps.refit.user.entity.user.User;
 
@@ -30,6 +31,10 @@ public class Schedule {
     @JsonBackReference
     @OneToMany(mappedBy = "exerciseRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<ExerciseRecord> exerciseRecordList = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "exerciseRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<DietRecord> dietRecordList = new ArrayList<>();
 
     @NotNull
     private LocalDate date;
