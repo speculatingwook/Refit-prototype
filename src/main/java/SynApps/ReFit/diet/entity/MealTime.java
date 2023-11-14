@@ -5,6 +5,7 @@ import synApps.refit.exercise.entity.ExercisePart;
 
 import java.util.Arrays;
 
+@Getter
 public enum MealTime {
     BREAKFAST("아침",0),
     LUNCH("점심", 1),
@@ -12,7 +13,6 @@ public enum MealTime {
     SNACK("간식", 3),
     LATE_NIGHT_SNACK("야식", 4),
     OTHER("기타", 99);
-    @Getter
     private final String korean;
     private final int serialNumber;
 
