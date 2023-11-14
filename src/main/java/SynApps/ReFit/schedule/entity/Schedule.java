@@ -33,7 +33,7 @@ public class Schedule {
     private final List<ExerciseRecord> exerciseRecordList = new ArrayList<>();
 
     @JsonBackReference
-    @OneToMany(mappedBy = "exerciseRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dietRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<DietRecord> dietRecordList = new ArrayList<>();
 
     @NotNull

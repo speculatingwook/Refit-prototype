@@ -1,15 +1,19 @@
 package synApps.refit.diet.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import synApps.refit.exercise.entity.RoutineSet;
 import synApps.refit.schedule.entity.Schedule;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +26,10 @@ public class DietRecord {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JsonIgnore
     private Schedule schedule;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "dish", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<Dish> dishArrayList = new ArrayList<>();
 
     private MealTime mealTime;
 
@@ -107,7 +115,6 @@ public class DietRecord {
                                  float dietFat,
                                  String userInputDiet,
                                  boolean isText,
-                                 LocalDateTime createdAt,
                                  LocalDateTime modifiedAt) {
         this.schedule = schedule;
         this.mealTime = mealTime;
@@ -120,7 +127,6 @@ public class DietRecord {
         this.dietFat = dietFat;
         this.userInputDiet = userInputDiet;
         this.isText = isText;
-        this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
 
