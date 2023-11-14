@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import synApps.refit.exercise.entity.Exercise;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,10 @@ public class Dish {
     @Id
     @GeneratedValue
     private Long dishId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "foodId", unique = true)
+    private Food food;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JsonIgnore
