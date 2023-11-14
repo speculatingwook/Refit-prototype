@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import synApps.refit.exercise.entity.RoutineSet;
 import synApps.refit.schedule.entity.Schedule;
 
 import javax.persistence.*;
@@ -29,7 +28,7 @@ public class DietRecord {
 
     @JsonBackReference
     @OneToMany(mappedBy = "dish", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private final List<Dish> dishArrayList = new ArrayList<>();
+    private final List<Dish> dishList = new ArrayList<>();
 
     private MealTime mealTime;
 
