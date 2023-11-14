@@ -31,7 +31,7 @@ public class RoutineSetController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{routine-set-id}")
+    @PutMapping("/check/{routine-set-id}")
     public ResponseEntity<?> checkDone(
             @PathVariable("routine-set-id") final Long routineSetId) {
         ResponseDto response = new ResponseDto(true, List.of(routineSetService.done(routineSetId)));

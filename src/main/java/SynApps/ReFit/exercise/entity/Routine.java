@@ -29,7 +29,7 @@ public class Routine {
     private Exercise exercise;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "routineSet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "routine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<RoutineSet> routineSetList = new ArrayList<>();
 
 

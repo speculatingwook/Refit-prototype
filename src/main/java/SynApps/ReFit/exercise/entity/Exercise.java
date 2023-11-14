@@ -18,9 +18,11 @@ public class Exercise {
     @NotNull
     private String exerciseName;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private ExercisePart exercisePart;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private ExerciseType exerciseType;
 

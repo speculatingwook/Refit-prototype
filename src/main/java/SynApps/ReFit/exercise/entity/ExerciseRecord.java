@@ -25,7 +25,7 @@ public class ExerciseRecord {
     private Schedule schedule;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "routine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "exerciseRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<Routine> routineList = new ArrayList<>();
 
     private LocalTime startAt;

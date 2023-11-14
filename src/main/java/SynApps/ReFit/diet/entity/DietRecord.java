@@ -27,9 +27,10 @@ public class DietRecord {
     private Schedule schedule;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "dish", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dietRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<Dish> dishList = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private MealTime mealTime;
 
     private LocalTime startAt;

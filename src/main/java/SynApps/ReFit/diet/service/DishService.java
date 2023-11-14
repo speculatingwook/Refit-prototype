@@ -46,7 +46,7 @@ public class DishService {
 
     public List<Dish> getDishList(Long recordId) {
         DietRecord dietRecord = dietRecordRepository.findByDietRecordId(recordId);
-        return dietRecord.getDishList();
+        return dishRepository.findAllByDietRecord(dietRecord);
     }
 
     public String deleteDish(Long dishId) {

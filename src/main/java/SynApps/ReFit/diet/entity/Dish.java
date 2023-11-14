@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import synApps.refit.exercise.entity.Exercise;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
