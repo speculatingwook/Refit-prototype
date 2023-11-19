@@ -39,4 +39,10 @@ public class UserController {
         ResponseDto response = new ResponseDto(true, List.of(userService.checkDuplicateId(request)));
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping()
+    public ResponseEntity<?> deleteUser() {
+        ResponseDto response = new ResponseDto(true, List.of(userService.deleteUser()));
+        return ResponseEntity.ok(response);
+    }
 }
