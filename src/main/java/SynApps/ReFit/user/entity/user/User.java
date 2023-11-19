@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import synApps.refit.body.entity.BodyStatus;
+import synApps.refit.schedule.entity.Schedule;
 import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
 
@@ -31,6 +32,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<BodyStatus> bodyStatusList = new ArrayList<>();
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<Schedule> ScheduleList = new ArrayList<>();
 
     @NotNull
     @Size(max = 64)
