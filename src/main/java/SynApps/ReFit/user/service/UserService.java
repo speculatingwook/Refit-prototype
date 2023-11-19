@@ -46,4 +46,11 @@ public class UserService {
     public boolean checkDuplicateId(DuplicateIdRequest request) throws Exception {
         return userRepository.existsByUserId(request.getUserId());
     }
+
+    public String deleteUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByUserId(principal.getUsername());
+        userRepository.delete(user);
+        return "delete successful";
+    }
 }
