@@ -2,10 +2,7 @@ package synApps.refit.user.oauth.info;
 
 
 import synApps.refit.user.oauth.entity.ProviderType;
-import synApps.refit.user.oauth.info.impl.FacebookOAuth2UserInfo;
-import synApps.refit.user.oauth.info.impl.GoogleOAuth2UserInfo;
-import synApps.refit.user.oauth.info.impl.KakaoOAuth2UserInfo;
-import synApps.refit.user.oauth.info.impl.NaverOAuth2UserInfo;
+import synApps.refit.user.oauth.info.impl.*;
 
 import java.util.Map;
 
@@ -16,6 +13,7 @@ public class OAuth2UserInfoFactory {
             case FACEBOOK: return new FacebookOAuth2UserInfo(attributes);
             case NAVER: return new NaverOAuth2UserInfo(attributes);
             case KAKAO: return new KakaoOAuth2UserInfo(attributes);
+            case APPLE:return new AppleOAuth2UserInfo(attributes);
             default: throw new IllegalArgumentException("Invalid Provider Type.");
         }
     }

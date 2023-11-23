@@ -23,7 +23,7 @@ public class UserService {
         return userRepository.findByUserId(principal.getUsername());
     }
 
-    public User signUp(SignupRequest request) throws Exception{
+    public User signUp(SignupRequest request) throws Exception {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");
         }
@@ -35,7 +35,7 @@ public class UserService {
                 request.getUserId(),
                 request.getUsername(),
                 request.getEmail(),
-                ProviderType.LOCAL,
+                ProviderType.of(request.getProviderType()),
                 RoleType.USER,
                 LocalDateTime.now(),
                 LocalDateTime.now());
