@@ -24,6 +24,9 @@ public class UserService {
     }
 
     public User signUp(SignupRequest request) throws Exception {
+        if (request.getCode().equals("code")) {
+            throw new Exception("코드가 일치하지 않습니다.");
+        }
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");
         }
