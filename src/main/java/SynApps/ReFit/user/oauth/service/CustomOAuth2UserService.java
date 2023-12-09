@@ -1,5 +1,7 @@
 package synApps.refit.user.oauth.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +19,11 @@ import synApps.refit.user.oauth.info.OAuth2UserInfo;
 import synApps.refit.user.oauth.info.OAuth2UserInfoFactory;
 import synApps.refit.user.repository.UserRepository;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,20 +34,25 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User user = super.loadUser(userRequest);
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
         try {
-            return this.process(userRequest, user);
+            if (registrationId.contains("apple")) {
+//                return processAppleUser(userRequest, user);
+            } else {
+                return processOtherProviders(userRequest, user);
+            }
         } catch (AuthenticationException ex) {
             throw ex;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
         }
+        return processOtherProviders(userRequest, user);
     }
 
-    private OAuth2User process(OAuth2UserRequest userRequest, OAuth2User user) {
+    private OAuth2User processOtherProviders(OAuth2UserRequest userRequest, OAuth2User user) {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
-
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
         User savedUser = userRepository.findByUserId(userInfo.getId());
 

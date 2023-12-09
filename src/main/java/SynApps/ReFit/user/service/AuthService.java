@@ -14,17 +14,24 @@ import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.global.dto.ResponseHeader;
 import synApps.refit.global.utils.CookieUtil;
 import synApps.refit.global.utils.HeaderUtil;
+import synApps.refit.user.dto.request.AppleLoginRequest;
 import synApps.refit.user.dto.request.LoginRequest;
+import synApps.refit.user.dto.response.OAuthPlatformMemberResponse;
+import synApps.refit.user.entity.user.User;
 import synApps.refit.user.entity.user.UserRefreshToken;
+import synApps.refit.user.oauth.apple.AppleOAuthUserProvider;
+import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
 import synApps.refit.user.oauth.entity.UserPrincipal;
 import synApps.refit.user.oauth.token.AuthToken;
 import synApps.refit.user.oauth.token.AuthTokenProvider;
 import synApps.refit.user.repository.UserRefreshTokenRepository;
+import synApps.refit.user.repository.UserRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +42,7 @@ public class AuthService {
     private final AppProperties appProperties;
     private final AuthTokenProvider tokenProvider;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
+    private final AppleOAuthUserProvider appleOAuthUserProvider;
 
     private final static long THREE_DAYS_MSEC = 259200;
     private final static String REFRESH_TOKEN = "refresh_token";
@@ -61,6 +69,37 @@ public class AuthService {
         ResponseDto responseData = new ResponseDto(true, List.of(accessToken));
         return ResponseEntity.ok(responseData);
     }
+    public ResponseEntity<?> appleOAuthLogin(HttpServletRequest request,
+                                             HttpServletResponse response,
+                                             AppleLoginRequest appleLoginRequest) {
+        OAuthPlatformMemberResponse applePlatformMember =
+                appleOAuthUserProvider.getApplePlatformMember(appleLoginRequest.getToken());
+
+        String email = applePlatformMember.getEmail();
+        String platformId = applePlatformMember.getPlatformId();
+
+        // Create authentication based on retrieved Apple platform member details
+        Authentication authentication = getAuthentication(email, platformId);
+
+        // Set authentication in Security Context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        Date now = new Date();
+        long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
+
+        // Generate access and refresh tokens
+        AuthToken accessToken = createToken(email, authentication, now);
+        AuthToken refreshToken = getRefreshToken(now, refreshTokenExpiry);
+
+        // Check and handle refresh token
+        checkRefreshToken(email, refreshToken);
+        executeCookie(request, response, refreshTokenExpiry, refreshToken);
+
+        // Prepare response data
+        ResponseDto responseData = new ResponseDto(true, List.of(accessToken));
+        return ResponseEntity.ok(responseData);
+    }
+
 
     @Transactional
     public ResponseEntity<?> refresh(HttpServletRequest request, HttpServletResponse response) {

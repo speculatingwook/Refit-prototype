@@ -13,7 +13,6 @@ public class OAuth2UserInfoFactory {
             case FACEBOOK: return new FacebookOAuth2UserInfo(attributes);
             case NAVER: return new NaverOAuth2UserInfo(attributes);
             case KAKAO: return new KakaoOAuth2UserInfo(attributes);
-            case APPLE:return new AppleOAuth2UserInfo(attributes);
             default: throw new IllegalArgumentException("Invalid Provider Type.");
         }
     }

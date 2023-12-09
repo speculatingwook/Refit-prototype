@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import synApps.refit.global.config.properties.AppProperties;
 import synApps.refit.global.config.properties.CorsProperties;
+import synApps.refit.user.oauth.apple.AppleOAuthUserProvider;
 import synApps.refit.user.oauth.entity.RoleType;
 import synApps.refit.user.oauth.exception.RestAuthenticationEntryPoint;
 import synApps.refit.user.oauth.filter.TokenAuthenticationFilter;
@@ -59,7 +60,8 @@ public class SecurityConfig{
             "/auth",
             "/user/duplicate-id",
             "/user",
-            "/auth/refresh-token"
+            "/auth/refresh-token",
+            "/apple"
     };
 
     /*
