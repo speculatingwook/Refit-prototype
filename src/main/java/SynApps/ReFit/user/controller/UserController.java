@@ -27,6 +27,12 @@ public class UserController {
         ResponseDto response = new ResponseDto(true, List.of(userService.signUp(request)));
         return ResponseEntity.ok(response);
     }
+    @PostMapping("/apple")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> joinApple(@Valid @RequestBody SignupRequest request) throws Exception {
+        ResponseDto response = new ResponseDto(true, List.of(userService.signUpByOAuth(request)));
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<?> getUser() {

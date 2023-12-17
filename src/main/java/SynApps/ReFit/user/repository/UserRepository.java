@@ -3,6 +3,7 @@ package synApps.refit.user.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import synApps.refit.user.entity.user.User;
+import synApps.refit.user.oauth.entity.ProviderType;
 
 import java.util.Optional;
 
@@ -16,6 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
 
     User findByEmail(String email);
+
+    User findByProviderTypeAndUserId(ProviderType providerType, String userId);
 
     User findByUserId(String userId);
     Boolean existsByUserId(String userId);
