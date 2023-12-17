@@ -61,7 +61,8 @@ public class SecurityConfig{
             "/user/duplicate-id",
             "/user",
             "/auth/refresh-token",
-            "/auth/apple"
+            "/auth/apple",
+            "/user/apple"
     };
 
     /*
