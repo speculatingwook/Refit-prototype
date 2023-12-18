@@ -83,7 +83,7 @@ public class AuthService {
         if (!userRepository.existsByUserId(platformId)) {
             User user = User.of(
                     platformId,
-                    "",
+                    "default",
                     email,
                     ProviderType.APPLE,
                     RoleType.USER,
