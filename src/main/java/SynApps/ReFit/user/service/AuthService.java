@@ -70,6 +70,8 @@ public class AuthService {
         ResponseDto responseData = new ResponseDto(true, List.of(accessToken));
         return ResponseEntity.ok(responseData);
     }
+
+    @Transactional
     public ResponseEntity<?> appleOAuthLogin(HttpServletRequest request,
                                              HttpServletResponse response,
                                              AppleLoginRequest appleLoginRequest) {
