@@ -43,6 +43,7 @@ public class AuthService {
     private final AuthTokenProvider tokenProvider;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
     private final AppleOAuthUserProvider appleOAuthUserProvider;
+    private final UserRepository userRepository;
 
     private final static long THREE_DAYS_MSEC = 259200;
     private final static String REFRESH_TOKEN = "refresh_token";
@@ -77,9 +78,22 @@ public class AuthService {
 
         String email = applePlatformMember.getEmail();
         String platformId = applePlatformMember.getPlatformId();
+        if (!userRepository.existsByUserId(platformId)) {
+            User user = User.of(
+                    platformId,
+                    "",
+                    email,
+                    ProviderType.APPLE,
+                    RoleType.USER,
+                    LocalDateTime.now(),
+                    LocalDateTime.now()
+            );
+            user.encodePassword(platformId);
+            userRepository.save(user);
+        }
 
         // Create authentication based on retrieved Apple platform member details
-        Authentication authentication = getAuthentication(email, platformId);
+        Authentication authentication = getAuthentication(platformId, platformId);
 
         // Set authentication in Security Context
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -157,6 +171,7 @@ public class AuthService {
                         userPassword)
         );
     }
+
 
     private AuthToken createToken(String userId, Authentication authentication, Date currentTime) {
         return tokenProvider.createAuthToken(
