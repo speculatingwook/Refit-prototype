@@ -89,7 +89,7 @@ public class AuthService {
                     LocalDateTime.now()
             );
             user.encodePassword(platformId);
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
         }
 
         // Create authentication based on retrieved Apple platform member details
