@@ -46,33 +46,16 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
-
-    public User signUpByOAuth(SignupRequest request) throws Exception {
-        if (!request.getCode().equals("code")) {
-            throw new Exception("코드가 일치하지 않습니다.");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new Exception("이미 존재하는 이메일입니다.");
-        }
-        if (userRepository.existsByUserId(request.getUserId())) {
-            throw new Exception("중복되는 아이디입니다.");
-        }
-        ProviderType providerType = ProviderType.of(request.getProviderType());
-        if (userRepository.existsByUserId(request.getUserId())) {
-            return userRepository.findByProviderTypeAndUserId(providerType, request.getUserId());
-        }
-        User user = User.of(
-                request.getUserId(),
-                request.getUsername(),
-                request.getEmail(),
-                ProviderType.of(request.getProviderType()),
-                RoleType.USER,
-                LocalDateTime.now(),
-                LocalDateTime.now()
-        );
-        userRepository.save(user);
-        return user;
-    }
+//
+//    public User signUpByOAuth(SignupRequest request){
+//        ProviderType providerType = ProviderType.of(request.getProviderType());
+//        if (userRepository.existsByUserId(request.getUserId())) {
+//            return userRepository.findByProviderTypeAndUserId(providerType, request.getUserId());
+//        }
+//
+//        userRepository.save(user);
+//        return user;
+//    }
     public boolean checkDuplicateId(DuplicateIdRequest request) throws Exception {
         return userRepository.existsByUserId(request.getUserId());
     }
