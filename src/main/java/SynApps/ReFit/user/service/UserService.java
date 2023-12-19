@@ -20,7 +20,10 @@ public class UserService {
 
     public User getUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findByUserId(principal.getUsername());
+        if (userRepository.existsByUserId(principal.getUsername())) {
+            return userRepository.findByUserId(principal.getUsername());
+        }
+        return userRepository.findByEmail(principal.getUsername());
     }
 
     public User signUp(SignupRequest request) throws Exception {
