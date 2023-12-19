@@ -3,6 +3,7 @@ package synApps.refit.user.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import synApps.refit.body.entity.BodyStatus;
@@ -52,6 +53,12 @@ public class User {
     @NotBlank
     @Size(max = 120)
     private String password;
+
+    @NotNull
+    private int exp;
+
+    @NotNull
+    private int level;
 
     @Nullable
     @Size(max = 512)

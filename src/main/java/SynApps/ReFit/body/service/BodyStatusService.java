@@ -64,7 +64,7 @@ public class BodyStatusService {
             User user = userRepository.findByUserId(userFromClient.getUserId());
             return bodyStatusRepository.findAllByUser(user);
         }
-        User user = userRepository.findByEmail(userFromClient.getUserId());
+        User user = userRepository.findByEmail(userFromClient.getUsername());
         return bodyStatusRepository.findAllByUser(user);
     }
 
