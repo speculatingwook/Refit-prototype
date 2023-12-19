@@ -60,7 +60,11 @@ public class BodyStatusService {
 
     public List<BodyStatus> getInfoList() {
         User userFromClient = clientUserLoader.getClientUser();
-        User user = userRepository.findByUserId(userFromClient.getUserId());
+        if (userRepository.existsByUserId(userFromClient.getUserId())) {
+            User user = userRepository.findByUserId(userFromClient.getUserId());
+            return bodyStatusRepository.findAllByUser(user);
+        }
+        User user = userRepository.findByEmail(userFromClient.getUserId());
         return bodyStatusRepository.findAllByUser(user);
     }
 
