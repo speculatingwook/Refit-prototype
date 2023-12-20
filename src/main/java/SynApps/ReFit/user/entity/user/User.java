@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import synApps.refit.body.entity.BodyStatus;
+import synApps.refit.level.entity.Level;
 import synApps.refit.schedule.entity.Schedule;
 import synApps.refit.user.oauth.entity.ProviderType;
 import synApps.refit.user.oauth.entity.RoleType;
@@ -37,6 +38,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<Schedule> ScheduleList = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Level level;
+
     @NotNull
     @Size(max = 64)
     private String userId;
@@ -53,12 +57,6 @@ public class User {
     @NotBlank
     @Size(max = 120)
     private String password;
-
-    @NotNull
-    private int exp;
-
-    @NotNull
-    private int level;
 
     @Nullable
     @Size(max = 512)
@@ -122,7 +120,7 @@ public class User {
                           RoleType roleType,
                           LocalDateTime createdAt,
                           LocalDateTime modifiedAt) {
-        return new User(userId,username,  email, profileImageUrl, providerType, roleType, createdAt, modifiedAt );
+        return new User(userId,username,  email, profileImageUrl, providerType, roleType, createdAt, modifiedAt);
     }
     public static User of(String userId,
                           String username,
