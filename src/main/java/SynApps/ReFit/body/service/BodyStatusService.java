@@ -11,6 +11,7 @@ import synApps.refit.global.utils.DateTimeUtil;
 import synApps.refit.user.entity.user.User;
 import synApps.refit.user.repository.UserRepository;
 import synApps.refit.user.service.ClientUserLoader;
+import synApps.refit.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,11 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BodyStatusService {
     private final BodyStatusRepository bodyStatusRepository;
+    private final UserService userService;
     private final UserRepository userRepository;
-    private final ClientUserLoader clientUserLoader;
 
     public BodyStatus saveInfo(BodyStatusRequest request) {
-        User user = clientUserLoader.getClientUser();
+        User user = userService.getUser();
         DateTimeUtil dateTime = new DateTimeUtil();
         BodyStatus bodyStatus = BodyStatus.of(
                 user,
@@ -59,12 +60,14 @@ public class BodyStatusService {
     }
 
     public List<BodyStatus> getInfoList() {
-        User userFromClient = clientUserLoader.getClientUser();
-        if (userRepository.existsByUserId(userFromClient.getUserId())) {
+        User userFromClient = userService.getUser();
+        if (userRepository.existsByEmail(userFromClient.getEmail())) {
             User user = userRepository.findByUserId(userFromClient.getUserId());
             return bodyStatusRepository.findAllByUser(user);
         }
-        User user = userRepository.findByEmail(userFromClient.getUsername());
+        System.out.println(userFromClient.getUserId());
+        System.out.println(userFromClient.getEmail());
+        User user = userRepository.findByEmail(userFromClient.getEmail());
         return bodyStatusRepository.findAllByUser(user);
     }
 
