@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public class LevelInfo {
     private final Integer level;
-    private static HashMap<Integer, Integer> levelInfo;
+    private static HashMap<Integer, Integer> levelInfo = new HashMap<>();
     private static List<Integer> expValues = List.of(
             10, 22, 36, 52, 72, 95, 121, 150, 185, 224,
             267, 314, 365, 425, 490, 560, 635, 715, 815, 921,
@@ -22,8 +22,8 @@ public class LevelInfo {
     }
 
     private void initializeInfo() {
-        for (int i = 1; i < expValues.size()+1; i++) {
-            levelInfo.put(expValues.get(i), i);
+        for (int i = 1; i < expValues.size() + 1; i++) {
+            levelInfo.put(expValues.get(i-1), i);
         }
     }
 

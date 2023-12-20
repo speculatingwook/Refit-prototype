@@ -4,7 +4,9 @@ package synApps.refit.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import synApps.refit.level.entity.Level;
+import synApps.refit.level.repository.LevelRepository;
 import synApps.refit.level.service.LevelService;
 import synApps.refit.user.dto.request.DuplicateIdRequest;
 import synApps.refit.user.dto.request.SignupRequest;
@@ -28,6 +30,7 @@ public class UserService {
         return userRepository.findByEmail(principal.getUsername());
     }
 
+    @Transactional
     public User signUp(SignupRequest request) throws Exception {
         if (!request.getCode().equals("code")) {
             throw new Exception("코드가 일치하지 않습니다.");

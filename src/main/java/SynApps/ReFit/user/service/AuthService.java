@@ -14,6 +14,8 @@ import synApps.refit.global.dto.ResponseDto;
 import synApps.refit.global.dto.ResponseHeader;
 import synApps.refit.global.utils.CookieUtil;
 import synApps.refit.global.utils.HeaderUtil;
+import synApps.refit.level.entity.Level;
+import synApps.refit.level.repository.LevelRepository;
 import synApps.refit.user.dto.request.AppleLoginRequest;
 import synApps.refit.user.dto.request.LoginRequest;
 import synApps.refit.user.dto.response.OAuthPlatformMemberResponse;
@@ -44,6 +46,7 @@ public class AuthService {
     private final UserRefreshTokenRepository userRefreshTokenRepository;
     private final AppleOAuthUserProvider appleOAuthUserProvider;
     private final UserRepository userRepository;
+    private final LevelRepository levelRepository;
 
     private final static long THREE_DAYS_MSEC = 259200;
     private final static String REFRESH_TOKEN = "refresh_token";
@@ -91,7 +94,7 @@ public class AuthService {
                     LocalDateTime.now()
             );
             user.encodePassword(platformId);
-            userRepository.saveAndFlush(user);
+            levelRepository.saveAndFlush(Level.newLevel(user));
         }
 
         // Create authentication based on retrieved Apple platform member details
