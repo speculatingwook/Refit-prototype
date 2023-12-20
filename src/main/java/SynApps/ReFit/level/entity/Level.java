@@ -16,13 +16,15 @@ public class Level {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private User user;
 
     @NotNull
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 1")
     private Integer level;
 
     @NotNull
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private Integer exp;
 
     private Level(User user,Integer exp) {
@@ -32,9 +34,19 @@ public class Level {
         this.level = levelInfo.getLevel();
     }
 
+    private Level(Integer exp) {
+        calculateLevel(exp);
+        this.exp = exp;
+    }
+
     public static Level of(User user, Integer exp) {
         return new Level(user, exp);
     }
+
+    public static Level of() {
+        return new Level(0);
+    }
+
 
     public static Level newLevel(User user) {
         return new Level(user, 0);
