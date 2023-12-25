@@ -38,6 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<Schedule> ScheduleList = new ArrayList<>();
 
+    @JsonBackReference
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final Level level = Level.of();
 
